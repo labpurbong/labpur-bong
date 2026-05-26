@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — লাবপুর বং</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+</head>
+<body>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="login-logo-icon">ল</span>
+        <h1>লাবপুর বং</h1>
+        <p>Admin Dashboard</p>
+      </div>
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <label for="loginUser">ইউজারনেম</label>
+          <input type="text" id="loginUser" class="form-input" placeholder="admin" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPass">পাসওয়ার্ড</label>
+          <input type="password" id="loginPass" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-primary btn-full">লগইন করুন →</button>
+        <p class="login-hint">Default: admin / labpur2026</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN LAYOUT ===== -->
+  <div class="admin-layout" id="adminLayout" style="display:none;">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <span class="sidebar-logo-icon">ল</span>
+          <span class="sidebar-logo-text gradient-text">লাবপুর বং</span>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link active" data-page="dashboard">
+          <span class="sidebar-icon">📊</span>
+          <span class="sidebar-label">ড্যাশবোর্ড</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="news">
+          <span class="sidebar-icon">📰</span>
+          <span class="sidebar-label">সংবাদ</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="directory">
+          <span class="sidebar-icon">🏪</span>
+          <span class="sidebar-label">ডিরেক্টরি</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="gallery">
+          <span class="sidebar-icon">🖼️</span>
+          <span class="sidebar-label">গ্যালারি</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="settings">
+          <span class="sidebar-icon">⚙️</span>
+          <span class="sidebar-label">সেটিংস</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div class="sidebar-user-info">
+            <span class="sidebar-user-name">Admin</span>
+            <span class="sidebar-user-role">অ্যাডমিন</span>
+          </div>
+        </div>
+        <button class="sidebar-link" id="logoutBtn">
+          <span class="sidebar-icon">🚪</span>
+          <span class="sidebar-label">লগআউট</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- TOP BAR -->
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+          <h2 class="page-title" id="pageTitle">ড্যাশবোর্ড</h2>
+        </div>
+        <div class="top-bar-right">
+          <button class="theme-toggle-admin" id="adminThemeToggle">🌙</button>
+          <a href="index.html" target="_blank" class="btn-secondary btn-sm">🌐 সাইট দেখুন</a>
+        </div>
+      </div>
+
+      <!-- ========== DASHBOARD PAGE ========== -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-card-icon">📰</div>
+            <div class="stat-card-info">
+              <span class="stat-card-number" id="statNews">0</span>
+              <span class="stat-card-label">সংবাদ</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">🏪</div>
+            <div class="stat-card-info">
+              <span class="stat-card-number" id="statDirectory">0</span>
+              <span class="stat-card-label">ব্যবসা</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">🖼️</div>
+            <div class="stat-card-info">
+              <span class="stat-card-number" id="statGallery">0</span>
+              <span class="stat-card-label">গ্যালারি ছবি</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">👁️</div>
+            <div class="stat-card-info">
+              <span class="stat-card-number" id="statVisits">0</span>
+              <span class="stat-card-label">পেজ ভিউ</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>সর্বশেষ সংবাদ</h3>
+              <a href="#" class="card-link" data-goto="news">সব দেখুন →</a>
+            </div>
+            <div class="card-body" id="recentNewsList">
+              <div class="empty-state">
+                <span class="empty-icon">📝</span>
+                <p>এখনও কোনো সংবাদ যোগ করা হয়নি</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>সর্বশেষ ব্যবসা</h3>
+              <a href="#" class="card-link" data-goto="directory">সব দেখুন →</a>
+            </div>
+            <div class="card-body" id="recentDirList">
+              <div class="empty-state">
+                <span class="empty-icon">🏬</span>
+                <p>এখনও কোনো ব্যবসা যোগ করা হয়নি</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== NEWS PAGE ========== -->
+      <div class="page" id="page-news">
+        <div class="page-header">
+          <h3>সংবাদ পরিচালনা</h3>
+          <button class="btn-primary" id="addNewsBtn">+ নতুন সংবাদ</button>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="newsTable">
+            <thead>
+              <tr>
+                <th>শিরোনাম</th>
+                <th>ক্যাটাগরি</th>
+                <th>তারিখ</th>
+                <th>অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="newsTableBody">
+            </tbody>
+          </table>
+          <div class="empty-state" id="newsEmpty">
+            <span class="empty-icon">📰</span>
+            <p>কোনো সংবাদ নেই। নতুন সংবাদ যোগ করুন।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== DIRECTORY PAGE ========== -->
+      <div class="page" id="page-directory">
+        <div class="page-header">
+          <h3>ডিরেক্টরি পরিচালনা</h3>
+          <button class="btn-primary" id="addDirBtn">+ নতুন ব্যবসা</button>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="dirTable">
+            <thead>
+              <tr>
+                <th>নাম</th>
+                <th>ক্যাটাগরি</th>
+                <th>অবস্থান</th>
+                <th>অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="dirTableBody">
+            </tbody>
+          </table>
+          <div class="empty-state" id="dirEmpty">
+            <span class="empty-icon">🏪</span>
+            <p>কোনো ব্যবসা নেই। নতুন ব্যবসা যোগ করুন।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== GALLERY PAGE ========== -->
+      <div class="page" id="page-gallery">
+        <div class="page-header">
+          <h3>গ্যালারি পরিচালনা</h3>
+          <button class="btn-primary" id="addGalleryBtn">+ নতুন ছবি</button>
+        </div>
+        <div class="gallery-admin-grid" id="galleryAdminGrid">
+        </div>
+        <div class="empty-state" id="galleryEmpty">
+          <span class="empty-icon">🖼️</span>
+          <p>কোনো ছবি নেই। নতুন ছবি যোগ করুন।</p>
+        </div>
+      </div>
+
+      <!-- ========== SETTINGS PAGE ========== -->
+      <div class="page" id="page-settings">
+        <div class="page-header">
+          <h3>সাইট সেটিংস</h3>
+        </div>
+        <form id="settingsForm">
+          <div class="settings-section">
+            <h4>📌 সাধারণ</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>সাইটের নাম</label>
+                <input type="text" class="form-input" id="setSiteName" value="লাবপুর বং">
+              </div>
+              <div class="form-group">
+                <label>ট্যাগলাইন</label>
+                <input type="text" class="form-input" id="setTagline" value="লাবপুরের প্রাণ, বাংলার গান">
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h4>📞 যোগাযোগ</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>ইমেইল</label>
+                <input type="email" class="form-input" id="setEmail" value="contact@labpurbong.com">
+              </div>
+              <div class="form-group">
+                <label>ফোন</label>
+                <input type="tel" class="form-input" id="setPhone" value="+91 98765 43210">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>ঠিকানা</label>
+              <input type="text" class="form-input" id="setAddress" value="লাবপুর, বীরভূম, পশ্চিমবঙ্গ">
+            </div>
+          </div>
+          <div class="settings-section">
+            <h4>🌐 সোশ্যাল মিডিয়া</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>YouTube URL</label>
+                <input type="url" class="form-input" id="setYoutube" placeholder="https://youtube.com/@channel">
+              </div>
+              <div class="form-group">
+                <label>Facebook URL</label>
+                <input type="url" class="form-input" id="setFacebook" placeholder="https://facebook.com/page">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Instagram URL</label>
+                <input type="url" class="form-input" id="setInstagram" placeholder="https://instagram.com/handle">
+              </div>
+              <div class="form-group">
+                <label>Twitter / X URL</label>
+                <input type="url" class="form-input" id="setTwitter" placeholder="https://x.com/handle">
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h4>🔐 অ্যাডমিন</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>নতুন পাসওয়ার্ড</label>
+                <input type="password" class="form-input" id="setNewPass" placeholder="নতুন পাসওয়ার্ড দিন">
+              </div>
+              <div class="form-group">
+                <label>পাসওয়ার্ড নিশ্চিত করুন</label>
+                <input type="password" class="form-input" id="setConfirmPass" placeholder="আবার পাসওয়ার্ড দিন">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">💾 সেটিংস সেভ করুন</button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">নতুন যোগ করুন</h3>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <form id="modalForm">
+        <div class="modal-body" id="modalBody">
+          <!-- Dynamic form fields injected by JS -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="modalCancel">বাতিল</button>
+          <button type="submit" class="btn-primary" id="modalSubmit">সেভ করুন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
